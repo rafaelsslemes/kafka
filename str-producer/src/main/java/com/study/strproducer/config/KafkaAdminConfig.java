@@ -21,7 +21,7 @@ public class KafkaAdminConfig {
     public KafkaProperties properties;
 
     @Bean
-    public KafkaAdmin kafkaAdmin(){
+    KafkaAdmin kafkaAdmin(){
         var configs = new HashMap<String, Object>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers());
         System.out.println("CONFIGURED");
@@ -30,7 +30,7 @@ public class KafkaAdminConfig {
     }
 
     @Bean
-    public KafkaAdmin.NewTopics createTopics(){
+    KafkaAdmin.NewTopics createTopics(){
 
         System.out.println("TOPICS CREATED");
 
