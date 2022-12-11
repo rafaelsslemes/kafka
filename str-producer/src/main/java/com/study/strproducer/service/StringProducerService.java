@@ -1,6 +1,7 @@
 package com.study.strproducer.service;
 
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -15,16 +16,20 @@ public class StringProducerService {
 
     public void sendMessage(String message){
         kafkaTemplate.send("str-topic", message)
-        .thenAccept(success -> {
-            log.info("Message sent {}", message);
-            log.info("Partition: {}, Offset: {}", 
-                        success.getRecordMetadata().partition(), 
-                        success.getRecordMetadata().offset());})
+        .thenAccept(this::onSuccess)
         .exceptionally(this::onError);
     }
 
     private Void onError(Throwable error){
         log.error("Error sending message");
         return null;
+    }
+
+    private void onSuccess(SendResult<String, String> result){
+
+        log.info("Message sent {}", result.getProducerRecord().value());
+        log.info("Partition: {}, Offset: {}", 
+            result.getRecordMetadata().partition(),
+            result.getRecordMetadata().offset());
     }
 }
