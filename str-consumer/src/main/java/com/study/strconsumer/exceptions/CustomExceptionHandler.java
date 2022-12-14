@@ -13,7 +13,10 @@ public class CustomExceptionHandler implements KafkaListenerErrorHandler{
 
     @Override
     public Object handleError(Message<?> message, ListenerExecutionFailedException exception) {
-        log.warn("Proccessing ERROR detected!");
+        log.warn("::: ERROR ::: Proccessing ERROR detected!");
+        log.info("::: PAYLOAD ::: " + message.getPayload().toString());
+        log.info("::: HEADER ::: " + message.getHeaders().toString());
+        log.info("::: OFFSET ::: " + message.getHeaders().get("kafka_offset"));
         return null;
     }
     
