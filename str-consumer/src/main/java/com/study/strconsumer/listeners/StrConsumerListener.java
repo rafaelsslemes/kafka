@@ -1,7 +1,5 @@
 package com.study.strconsumer.listeners;
 
-import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.stereotype.Component;
 
 import com.study.strconsumer.custom.StrCustomListener;
@@ -24,7 +22,9 @@ public class StrConsumerListener {
 
     @StrCustomListener(groupId = "string-group")
     public void listen(String message){
-    log.info("PROCCESS :: Message received: {}", message);
+        log.info("PROCCESS :: Message received: {}", message);
+        throw new IllegalArgumentException("Invalid value");
+
 }
 
     @StrCustomListener(groupId = "string-group")
