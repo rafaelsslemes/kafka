@@ -31,7 +31,8 @@ public class StrConsumerListener {
     public void auditLogs(String message){
         log.info("LOG ::: Message received: {}", message);
     }
-    @StrCustomListener(groupId = "other-string-group")
+
+    @StrCustomListener(groupId = "other-string-group", containerFactory = "strInterceptedContainerFactory")
     public void paymentProccess(String message){
         log.info("PAYMENT ::: Message received: {}", message);
     }
